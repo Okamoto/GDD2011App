@@ -13,5 +13,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="7" /><!-- ミニマムバージョンの指定 2=1.1のこと3=1.5、4=1.6 7=2.1-->
+    <uses-sdk android:minSdkVersion="7" />
 </manifest>
