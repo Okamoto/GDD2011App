@@ -16,19 +16,19 @@ public class GDD2011App extends Activity {
 
 	private static final String TAG = "Android";
 
-    private IQuizService quizService;
-    
+	private IQuizService quizService;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
-        Intent intent = new Intent("com.google.android.apps.gddquiz.IQuizService");
-        bindService(
-                intent,
-                serviceConnection,
-                BIND_AUTO_CREATE
-        );
+
+		Intent intent = new Intent("com.google.android.apps.gddquiz.IQuizService");
+		bindService(
+				intent,
+				serviceConnection,
+				BIND_AUTO_CREATE
+		);
 	}
 
 	@Override
@@ -41,25 +41,25 @@ public class GDD2011App extends Activity {
 		super.onDestroy();
 		unbindService(serviceConnection);
 	}
-	
-	private ServiceConnection serviceConnection = new ServiceConnection(){
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            //サービス取得
-        	quizService = IQuizService.Stub.asInterface(service);
-        	
-        	String code = "";
-            try{
-            	code = quizService.getCode();
-            }catch(Exception e){
-            	Log.e(TAG, "e:"+e.toString());
-            }
-    		Log.i(TAG, "code:"+code);
-        }
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        	quizService = null;
-        }
-    };
+	private ServiceConnection serviceConnection = new ServiceConnection(){
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			//サービス取得
+			quizService = IQuizService.Stub.asInterface(service);
+
+			String code = "";
+			try{
+				code = quizService.getCode();
+			}catch(Exception e){
+				Log.e(TAG, "e:"+e.toString());
+			}
+			Log.i(TAG, "code:"+code);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			quizService = null;
+		}
+	};
 }
